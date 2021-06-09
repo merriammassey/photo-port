@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
 //updated to add props after categories and useState moved up to app.js
@@ -20,6 +20,12 @@ function Nav(props) {
     },
   ]); */
   const { categories = [], setCurrentCategory, currentCategory } = props;
+
+  //use useEffect hook to trigger rerender and update the brower to reflect category selection
+  useEffect(() => {
+    document.title = capitalizeFirstLetter(currentCategory.name);
+  }, [currentCategory]);
+
   return (
     <header className="flex-row px-1">
       <h2>
