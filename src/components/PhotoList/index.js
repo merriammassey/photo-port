@@ -135,15 +135,16 @@ const PhotoList = ({ category }) => {
     //now can pass current photo as prop to Modal
     setCurrentPhoto({ ...image, index: i });
     //conditionally render
-    setIsModalOpen(true);
+    setIsModalOpen(!isModalOpen);
     //
   };
   return (
     <div>
       {/* render modal conditionally */}
       {isModalOpen && (
-        <Modal currentPhoto={currentPhoto} onClose={toggleModal} />
+        <Modal onClose={toggleModal} currentPhoto={currentPhoto} />
       )}
+
       <div className="flex-row">
         {currentPhotos.map((image, i) => (
           <img

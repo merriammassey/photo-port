@@ -10,7 +10,7 @@ function Modal({ onClose, currentPhoto }) {
         <h3 className="modalTitle">{name}</h3>
         <img alt="current category" />
         <img
-          src={require(`../../assets/large/${category}/${index}.jpg`)}
+          src={require(`../../assets/large/${category}/${index}.jpg`).default}
           alt="current category"
         />
         <p>{description}</p>
