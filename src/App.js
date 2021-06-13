@@ -20,7 +20,7 @@ function App() {
       description: "Fields, farmhouses, waterfalls, and the beauty of nature",
     },
   ]);
-
+  //setting default category and defining currentCategory
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
   return (
@@ -31,10 +31,8 @@ function App() {
         currentCategory={currentCategory}
       ></Nav>
       <main>
-        <div>
-          <Gallery></Gallery>
-          <About></About>
-        </div>
+        <Gallery currentCategory={currentCategory}></Gallery>
+        <About></About>
       </main>
     </div>
   );

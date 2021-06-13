@@ -19,12 +19,14 @@ function Nav(props) {
       description: "Fields, farmhouses, waterfalls, and the beauty of nature",
     },
   ]); */
+
+  //destructuring props
   const { categories = [], setCurrentCategory, currentCategory } = props;
 
-  //use useEffect hook to trigger rerender and update the brower to reflect category selection
+  //use useEffect hook to trigger rerender and update the brower tab to reflect category selection
   useEffect(() => {
     document.title = capitalizeFirstLetter(currentCategory.name);
-  }, [currentCategory]);
+  }, [currentCategory]); //dependency array, triggers rerender on change
 
   return (
     <header className="flex-row px-1">
