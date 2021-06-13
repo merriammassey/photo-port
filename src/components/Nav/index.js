@@ -21,7 +21,14 @@ function Nav(props) {
   ]); */
 
   //destructuring props
-  const { categories = [], setCurrentCategory, currentCategory } = props;
+  //updated on 20.4.6. to deconstruct contactSelected and setContactSelected from props
+  const {
+    categories = [],
+    setCurrentCategory,
+    currentCategory,
+    contactSelected,
+    setContactSelected,
+  } = props;
 
   //use useEffect hook to trigger rerender and update the brower tab to reflect category selection
   useEffect(() => {
@@ -42,21 +49,36 @@ function Nav(props) {
       <nav>
         <ul className="flex-row">
           <li className="mx-2">
-            <a href="#about">About me</a>
+            <a
+              data-testid="about"
+              href="#about"
+              // updated to add click handler to selectively render contact form
+              //when about is selected, contactSelected is false
+              onClick={() => setContactSelected(false)}
+            >
+              About me
+            </a>
           </li>
-          <li>
-            <span>Contact</span>
+          {/* updated to add conditional styling that indicates current active item */}
+          <li className={`mx-2 ${contactSelected && "navActive"}`}>
+            {/* updated with click handler */}
+            <span onClick={() => setContactSelected(true)}>Contact</span>{" "}
           </li>
           {categories.map((category) => (
             <li
               className={`mx-1 ${
-                currentCategory.name === category.name && "navActive"
+                // updated with conditional for contactSelected..navActive only assigned if Contact isn't selected and current category is selected
+                currentCategory.name === category.name &&
+                !contactSelected &&
+                "navActive"
               }`}
               key={category.name}
             >
               <span
                 onClick={() => {
                   setCurrentCategory(category);
+                  // updated with contactSelected condition
+                  setContactSelected(false);
                 }}
               >
                 {capitalizeFirstLetter(category.name)}
