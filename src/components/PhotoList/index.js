@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 //import Modal from "../Modal";
+import Modal from "../Modal";
 
 const PhotoList = ({ category }) => {
+  //Hook to manage whether modal is open
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [photos] = useState([
     {
       name: "Grocery aisle",
@@ -122,15 +126,32 @@ const PhotoList = ({ category }) => {
   //filter so only photos in selected category appear
   //go through each photo in the photos array, use those with category that matches chosen category in Gallery
   const currentPhotos = photos.filter((photo) => photo.category === category);
+  //use useState Hook to manage current photo state and make data accessible to Modal through props
+  const [currentPhoto, setCurrentPhoto] = useState();
 
+  const toggleModal = (image, i) => {
+    //manage current photo data with setCurrentPhoto setter to set state in toggleModal function
+    //use spread operator to add index: i key value pair to current photo state
+    //now can pass current photo as prop to Modal
+    setCurrentPhoto({ ...image, index: i });
+    //conditionally render
+    setIsModalOpen(true);
+    //
+  };
   return (
     <div>
+      {/* render modal conditionally */}
+      {isModalOpen && (
+        <Modal currentPhoto={currentPhoto} onClose={toggleModal} />
+      )}
       <div className="flex-row">
         {currentPhotos.map((image, i) => (
           <img
             src={require(`../../assets/small/${category}/${i}.jpg`).default}
             alt={image.name}
             className="img-thumbnail mx-1"
+            // add on click and assign click handler to toggle menu
+            onClick={() => toggleModal(image, i)}
             key={image.name}
           />
         ))}
